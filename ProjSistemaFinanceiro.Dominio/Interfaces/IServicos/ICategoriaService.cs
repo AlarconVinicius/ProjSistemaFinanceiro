@@ -14,6 +14,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
         Task AdicionarCategoria(CategoriaEntity objeto);
         Task AtualizarCategoria(CategoriaEntity objeto);
         Task DeletarCategoria(CategoriaEntity objeto);
-        Task<ResultadoPagina<CategoriaEntity>> ListarCategorias();
+        Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(Guid? categoriaId = null);
     }
 }

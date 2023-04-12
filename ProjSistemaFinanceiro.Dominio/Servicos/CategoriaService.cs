@@ -36,9 +36,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iCategoria.Deletar(objeto);
         }
 
-        public async Task<ResultadoPagina<CategoriaEntity>> ListarCategorias()
+        public async Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(Guid? categoriaId = null)
         {
-            return await _iCategoria.ListarCategorias();
+            return await _iCategoria.ListarCategorias(categoriaId);
         }
     }
 }
