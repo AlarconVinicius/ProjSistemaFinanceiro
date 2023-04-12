@@ -13,6 +13,6 @@ namespace ProjSistemaFinanceiro.Entidade.ResultadoPaginas
         //public int TotalCount { get; set; }
         //public int TotalPages { get; set; }
         //public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
-        public List<T> Resultados { get; set; } = new List<T>();
+        public List<T> Resultado { get; set; } = new List<T>();
     }
 }
