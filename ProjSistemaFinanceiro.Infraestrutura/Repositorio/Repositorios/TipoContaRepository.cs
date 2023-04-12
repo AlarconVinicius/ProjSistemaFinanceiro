@@ -12,23 +12,23 @@ using System.Threading.Tasks;
 
 namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
 {
-    public class CategoriaRepository : GenericoRepository<CategoriaEntity>, ICategoria
+    public class TipoContaRepository : GenericoRepository<TipoContaEntity>, ITipoConta
     {
-        public CategoriaRepository(ContextoBase context) : base(context) {}
+        public TipoContaRepository(ContextoBase context) : base(context) {}
 
 
-        public async Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(Guid? categoriaId = null)
+        public async Task<ResultadoPagina<TipoContaEntity>> ListarTiposConta(Guid? tipoContaId = null)
         {
-            string categoriaIdStr = categoriaId?.ToString();
+            string tipoContaIdStr = tipoContaId?.ToString();
 
-            var query = base._context.Categorias
+            var query = base._context.TipoContas
                 .AsQueryable();
-            if (!string.IsNullOrEmpty(categoriaIdStr))
+            if (!string.IsNullOrEmpty(tipoContaIdStr))
             {
-                query = query.Where(c => c.Id == categoriaId);
+                query = query.Where(c => c.Id == tipoContaId);
             }
             var result = await query.OrderByDescending(c => c.Nome).ToListAsync();
-            return new ResultadoPagina<CategoriaEntity>
+            return new ResultadoPagina<TipoContaEntity>
             {
                 Resultado = result
             };
