@@ -11,6 +11,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IClasses
 {
     public interface ITransacao : IGenerica<TransacaoEntity>
     {
-        Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? transacaoId = null);
+        Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? tipoControleId = null, Guid? tipoContaId = null, Guid? transacaoId = null);
     }
 }

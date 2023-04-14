@@ -1,47 +1,58 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
+using System.Drawing;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
-    [Route("api/transacaos")]
+    [Route("api/transacoes")]
     [ApiController]
     public class TransacaoController : ControllerBase
     {
         private readonly ITransacaoService _iTransacaoService;
+        private readonly IMapper _mapper;
 
-        public TransacaoController(ITransacaoService iTransacaoService)
+        public TransacaoController(ITransacaoService iTransacaoService, IMapper mapper)
         {
             _iTransacaoService = iTransacaoService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task AdicionarTransacao(TransacaoEntity objeto)
+        public async Task AdicionarTransacao(TransacaoAddDTO objeto)
         {
-            //var objetoMapeado = _mapper.Map<Transacao>(objeto);
-            await _iTransacaoService.AdicionarTransacao(objeto);
+            var objetoMapeado = _mapper.Map<TransacaoEntity>(objeto);
+            await _iTransacaoService.AdicionarTransacao(objetoMapeado);
         }
 
         [HttpGet]
-        public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes([FromQuery] Guid? transacaoId = null)
+        public async Task<ResultadoPagina<TransacaoViewDTO>> ListarTransacoes([FromQuery] Guid? transacaoId = null)
         {
             var objeto = await _iTransacaoService.ListarTransacoes(transacaoId);
-            //var objetoMapeado = _mapper.Map<List<TransacaoView>>(objeto);
-            return objeto;
+            var objetoMapeado = _mapper.Map<List<TransacaoViewDTO>>(objeto.Resultado);
+            return new ResultadoPagina<TransacaoViewDTO>
+            {
+                Resultado = objetoMapeado
+            };
         }
         [HttpPut]
-        public async Task AtualizarTransacao(TransacaoEntity objeto)
+        public async Task AtualizarTransacao(TransacaoUpdDTO objeto)
         {
-            await _iTransacaoService.AtualizarTransacao(objeto);
+            var objetoMapeado = _mapper.Map<TransacaoEntity>(objeto);
+            await _iTransacaoService.AtualizarTransacao(objetoMapeado);
         }
         [HttpDelete]
-        public async Task DeletarTransacao(TransacaoEntity objeto)
+        public async Task DeletarTransacao(TransacaoViewDTO objeto)
         {
-            await _iTransacaoService.DeletarTransacao(objeto);
+            var objetoMapeado = _mapper.Map<TransacaoEntity>(objeto);
+            await _iTransacaoService.DeletarTransacao(objetoMapeado);
         }
     }
 }

@@ -13,6 +13,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
         Task AdicionarTransacao(TransacaoEntity objeto);
         Task AtualizarTransacao(TransacaoEntity objeto);
         Task DeletarTransacao(TransacaoEntity objeto);
-        Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? transacaoId = null);
+        Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? tipoControleId = null, Guid? tipoContaId = null, Guid? transacaoId = null);
     }
 }
