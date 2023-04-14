@@ -33,7 +33,7 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
         public async Task AtualizarTransacao(TransacaoEntity objeto)
         {
             objeto.DataAlteracao = DateTime.Now;
-            await _iTransacao.Atualizar(objeto);
+            await _iTransacao.AtualizarTransacao(objeto);
         }
 
         public async Task DeletarTransacao(TransacaoEntity objeto)

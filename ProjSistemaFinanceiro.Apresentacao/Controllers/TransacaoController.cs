@@ -50,6 +50,8 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         [HttpPut]
         public async Task AtualizarTransacao(TransacaoUpdDTO objeto)
         {
+            objeto.DataCompra = DateTime.ParseExact(objeto.DataCompraStr, "dd/MM/yyyy", null);
+            objeto.DataPagamento = DateTime.ParseExact(objeto.DataPagamentoStr, "dd/MM/yyyy", null);
             var objetoMapeado = _mapper.Map<TransacaoEntity>(objeto);
             await _iTransacaoService.AtualizarTransacao(objetoMapeado);
         }

@@ -31,6 +31,18 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
             await _context.SaveChangesAsync();
         }
 
+        public async Task AtualizarTransacao(TransacaoEntity objeto)
+        {
+            var objetoOriginal = await _context.Transacoes.FindAsync(objeto.Id);
+            _context.Entry(objetoOriginal).CurrentValues.SetValues(objeto);
+            _context.Entry(objetoOriginal).Property("TipoControleId").IsModified = false;
+            await _context.SaveChangesAsync();
+            ////var objId = await _context.Transacoes.FindAsync(objeto.Id);
+            ////objeto.TipoControleId = objId.TipoControleId;
+            ////_context.Transacoes.Update(objeto);
+            ////await _context.SaveChangesAsync();
+        }
+
         public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? tipoControleId = null, Guid? tipoContaId = null, Guid ? transacaoId = null)
         {
             string tipoControleIdStr = tipoControleId?.ToString();
