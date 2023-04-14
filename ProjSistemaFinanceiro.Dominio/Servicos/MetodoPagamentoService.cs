@@ -31,9 +31,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iMetodoPagamento.Atualizar(objeto);
         }
 
-        public async Task DeletarMetodoPagamento(MetodoPagamentoEntity objeto)
+        public async Task DeletarMetodoPagamento(Guid id)
         {
-            await _iMetodoPagamento.Deletar(objeto);
+            await _iMetodoPagamento.Deletar(id);
         }
 
         public async Task<ResultadoPagina<MetodoPagamentoEntity>> ListarMetodosPagamento(Guid? metodoPagamentoId = null)

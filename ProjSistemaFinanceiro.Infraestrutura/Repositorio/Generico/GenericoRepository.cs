@@ -31,8 +31,9 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico
             await _context.SaveChangesAsync();
         }
 
-        public async Task Deletar(T objeto)
+        public async Task Deletar(Guid id)
         {
+            var objeto = await PegarPorId(id);
             _context.Set<T>().Remove(objeto);
             await _context.SaveChangesAsync();
         }
@@ -42,9 +43,9 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> PegarPorId(Guid Id)
+        public async Task<T> PegarPorId(Guid id)
         {
-            return await _context.Set<T>().FindAsync(Id);
+            return await _context.Set<T>().FindAsync(id);
         }
 
         #region Disposed https://docs.microsoft.com/pt-br/dotnet/standard/garbage-collection/implementing-dispose

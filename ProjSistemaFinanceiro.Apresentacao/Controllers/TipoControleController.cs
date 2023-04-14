@@ -39,9 +39,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             await _iTipoControleService.AtualizarTipoControle(objeto);
         }
         [HttpDelete]
-        public async Task DeletarTipoControle(TipoControleEntity objeto)
+        public async Task DeletarTipoControle([FromQuery] Guid id)
         {
-            await _iTipoControleService.DeletarTipoControle(objeto);
+            await _iTipoControleService.DeletarTipoControle(id);
         }
     }
 }

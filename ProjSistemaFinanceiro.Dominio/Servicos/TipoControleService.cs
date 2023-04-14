@@ -31,9 +31,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iTipoControle.Atualizar(objeto);
         }
 
-        public async Task DeletarTipoControle(TipoControleEntity objeto)
+        public async Task DeletarTipoControle(Guid id)
         {
-            await _iTipoControle.Deletar(objeto);
+            await _iTipoControle.Deletar(id);
         }
 
         public async Task<ResultadoPagina<TipoControleEntity>> ListarTiposControle(Guid? tipoControleId = null)

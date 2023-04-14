@@ -12,7 +12,7 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
     {
         Task AdicionarNomeCartao(NomeCartaoEntity objeto);
         Task AtualizarNomeCartao(NomeCartaoEntity objeto);
-        Task DeletarNomeCartao(NomeCartaoEntity objeto);
+        Task DeletarNomeCartao(Guid id);
         Task<ResultadoPagina<NomeCartaoEntity>> ListarNomeCartoes(Guid? nomeCartaoId = null);
     }
 }

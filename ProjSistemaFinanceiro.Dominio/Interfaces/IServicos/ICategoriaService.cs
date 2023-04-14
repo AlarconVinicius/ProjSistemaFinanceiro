@@ -13,7 +13,7 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
     {
         Task AdicionarCategoria(CategoriaEntity objeto);
         Task AtualizarCategoria(CategoriaEntity objeto);
-        Task DeletarCategoria(CategoriaEntity objeto);
+        Task DeletarCategoria(Guid id);
         Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(Guid? categoriaId = null);
     }
 }

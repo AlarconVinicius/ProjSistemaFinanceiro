@@ -12,7 +12,7 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
     {
         Task AdicionarBanco(BancoEntity objeto);
         Task AtualizarBanco(BancoEntity objeto);
-        Task DeletarBanco(BancoEntity objeto);
+        Task DeletarBanco(Guid id);
         Task<ResultadoPagina<BancoEntity>> ListarBancos(Guid? bancoId = null);
     }
 }

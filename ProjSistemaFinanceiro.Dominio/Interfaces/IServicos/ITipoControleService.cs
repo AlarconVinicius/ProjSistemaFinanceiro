@@ -12,7 +12,7 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
     {
         Task AdicionarTipoControle(TipoControleEntity objeto);
         Task AtualizarTipoControle(TipoControleEntity objeto);
-        Task DeletarTipoControle(TipoControleEntity objeto);
+        Task DeletarTipoControle(Guid id);
         Task<ResultadoPagina<TipoControleEntity>> ListarTiposControle(Guid? tipoControleId = null);
     }
 }

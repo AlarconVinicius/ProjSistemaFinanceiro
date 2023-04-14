@@ -12,7 +12,7 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
     {
         Task AdicionarMetodoPagamento(MetodoPagamentoEntity objeto);
         Task AtualizarMetodoPagamento(MetodoPagamentoEntity objeto);
-        Task DeletarMetodoPagamento(MetodoPagamentoEntity objeto);
+        Task DeletarMetodoPagamento(Guid id);
         Task<ResultadoPagina<MetodoPagamentoEntity>> ListarMetodosPagamento(Guid? metodoPagamentoId = null);
     }
 }

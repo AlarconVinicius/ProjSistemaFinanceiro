@@ -39,9 +39,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             await _iCategoriaService.AtualizarCategoria(objeto);
         }
         [HttpDelete]
-        public async Task DeletarCategoria(CategoriaEntity objeto)
+        public async Task DeletarCategoria([FromQuery] Guid id)
         {
-            await _iCategoriaService.DeletarCategoria(objeto);
+            await _iCategoriaService.DeletarCategoria(id);
         }
     }
 }

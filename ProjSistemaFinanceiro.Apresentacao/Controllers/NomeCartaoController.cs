@@ -39,9 +39,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             await _iNomeCartaoService.AtualizarNomeCartao(objeto);
         }
         [HttpDelete]
-        public async Task DeletarNomeCartao(NomeCartaoEntity objeto)
+        public async Task DeletarNomeCartao([FromQuery] Guid id)
         {
-            await _iNomeCartaoService.DeletarNomeCartao(objeto);
+            await _iNomeCartaoService.DeletarNomeCartao(id);
         }
     }
 }

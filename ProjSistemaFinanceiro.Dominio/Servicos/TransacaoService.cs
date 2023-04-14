@@ -36,9 +36,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iTransacao.AtualizarTransacao(objeto);
         }
 
-        public async Task DeletarTransacao(TransacaoEntity objeto)
+        public async Task DeletarTransacao(Guid id)
         {
-            await _iTransacao.Deletar(objeto);
+            await _iTransacao.Deletar(id);
         }
 
         public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? tipoControleId = null, Guid? tipoContaId = null, Guid? transacaoId = null)

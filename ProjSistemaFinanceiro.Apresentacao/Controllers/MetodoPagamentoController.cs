@@ -37,9 +37,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             await _iMetodoPagamentoService.AtualizarMetodoPagamento(objeto);
         }
         [HttpDelete]
-        public async Task DeletarMetodoPagamento(MetodoPagamentoEntity objeto)
+        public async Task DeletarMetodoPagamento([FromQuery] Guid id)
         {
-            await _iMetodoPagamentoService.DeletarMetodoPagamento(objeto);
+            await _iMetodoPagamentoService.DeletarMetodoPagamento(id);
         }
     }
 }

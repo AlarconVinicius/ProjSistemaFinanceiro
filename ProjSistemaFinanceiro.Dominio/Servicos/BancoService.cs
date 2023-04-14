@@ -31,9 +31,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iBanco.Atualizar(objeto);
         }
 
-        public async Task DeletarBanco(BancoEntity objeto)
+        public async Task DeletarBanco(Guid id)
         {
-            await _iBanco.Deletar(objeto);
+            await _iBanco.Deletar(id);
         }
 
         public async Task<ResultadoPagina<BancoEntity>> ListarBancos(Guid? bancoId = null)

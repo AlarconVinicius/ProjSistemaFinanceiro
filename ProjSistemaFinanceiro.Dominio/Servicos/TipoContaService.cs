@@ -31,9 +31,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iTipoConta.Atualizar(objeto);
         }
 
-        public async Task DeletarTipoConta(TipoContaEntity objeto)
+        public async Task DeletarTipoConta(Guid id)
         {
-            await _iTipoConta.Deletar(objeto);
+            await _iTipoConta.Deletar(id);
         }
 
         public async Task<ResultadoPagina<TipoContaEntity>> ListarTiposConta(Guid? tipoContaId = null)

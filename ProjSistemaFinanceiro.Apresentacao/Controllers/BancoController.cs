@@ -47,10 +47,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             await _iBancoService.AtualizarBanco(objetoMapeado);
         }
         [HttpDelete]
-        public async Task DeletarBanco(BancoUpdDTO objeto)
+        public async Task DeletarBanco([FromQuery] Guid id)
         {
-            var objetoMapeado = _mapper.Map<BancoEntity>(objeto);
-            await _iBancoService.DeletarBanco(objetoMapeado);
+            await _iBancoService.DeletarBanco(id);
         }
     }
 }

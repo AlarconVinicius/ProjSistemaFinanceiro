@@ -12,7 +12,7 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
     {
         Task AdicionarTipoConta(TipoContaEntity objeto);
         Task AtualizarTipoConta(TipoContaEntity objeto);
-        Task DeletarTipoConta(TipoContaEntity objeto);
+        Task DeletarTipoConta(Guid id);
         Task<ResultadoPagina<TipoContaEntity>> ListarTiposConta(Guid? tipoContaId = null);
     }
 }

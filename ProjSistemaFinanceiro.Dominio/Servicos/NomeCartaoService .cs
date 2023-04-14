@@ -31,9 +31,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iNomeCartao.Atualizar(objeto);
         }
 
-        public async Task DeletarNomeCartao(NomeCartaoEntity objeto)
+        public async Task DeletarNomeCartao(Guid id)
         {
-            await _iNomeCartao.Deletar(objeto);
+            await _iNomeCartao.Deletar(id);
         }
 
         public async Task<ResultadoPagina<NomeCartaoEntity>> ListarNomeCartoes(Guid? nomeCartaoId = null)

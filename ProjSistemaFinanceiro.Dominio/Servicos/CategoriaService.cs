@@ -31,9 +31,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iCategoria.Atualizar(objeto);
         }
 
-        public async Task DeletarCategoria(CategoriaEntity objeto)
+        public async Task DeletarCategoria(Guid id)
         {
-            await _iCategoria.Deletar(objeto);
+            await _iCategoria.Deletar(id);
         }
 
         public async Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(Guid? categoriaId = null)

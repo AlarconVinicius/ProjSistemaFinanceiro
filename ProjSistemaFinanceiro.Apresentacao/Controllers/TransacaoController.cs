@@ -8,6 +8,7 @@ using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
+using System;
 using System.Drawing;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
@@ -56,10 +57,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             await _iTransacaoService.AtualizarTransacao(objetoMapeado);
         }
         [HttpDelete]
-        public async Task DeletarTransacao(TransacaoViewDTO objeto)
+        public async Task DeletarTransacao([FromQuery]Guid id)
         {
-            var objetoMapeado = _mapper.Map<TransacaoEntity>(objeto);
-            await _iTransacaoService.DeletarTransacao(objetoMapeado);
+            await _iTransacaoService.DeletarTransacao(id);
         }
     }
 }
