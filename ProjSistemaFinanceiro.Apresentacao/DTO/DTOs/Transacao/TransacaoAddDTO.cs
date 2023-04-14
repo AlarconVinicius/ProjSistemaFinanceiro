@@ -23,8 +23,8 @@ namespace ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao
         public bool Entrada { get; set; }
         public bool Pago { get; set; }
 
-        public DateTime DataCompraStr { get; set; }
-        public DateTime DataPagamentoStr { get; set; }
+        public string DataCompraStr { get; set; }
+        public string DataPagamentoStr { get; set; }
 
         [JsonIgnore]
         public DateTime DataCompra { get; set; }

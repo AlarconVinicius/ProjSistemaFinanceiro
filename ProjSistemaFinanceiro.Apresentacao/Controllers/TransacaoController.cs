@@ -26,10 +26,15 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         }
 
         [HttpPost]
-        public async Task AdicionarTransacao(TransacaoAddDTO objeto)
+        public async Task AdicionarTransacoes(List<TransacaoAddDTO> listaObjetos)
         {
-            var objetoMapeado = _mapper.Map<TransacaoEntity>(objeto);
-            await _iTransacaoService.AdicionarTransacao(objetoMapeado);
+            foreach(var objeto in listaObjetos)
+            {
+                objeto.DataCompra = DateTime.ParseExact(objeto.DataCompraStr, "dd/MM/yyyy", null);
+                objeto.DataPagamento = DateTime.ParseExact(objeto.DataPagamentoStr, "dd/MM/yyyy", null);
+            }
+            var objetoMapeado = _mapper.Map<List<TransacaoEntity>>(listaObjetos);
+            await _iTransacaoService.AdicionarTransacoes(objetoMapeado);
         }
 
         [HttpGet]

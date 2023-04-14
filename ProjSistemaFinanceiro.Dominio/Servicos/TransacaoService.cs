@@ -18,11 +18,16 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
         {
             _iTransacao = iTransacao;
         }
-        public async Task AdicionarTransacao(TransacaoEntity objeto)
+        public async Task AdicionarTransacoes(List<TransacaoEntity> listaObjetos)
         {
-            objeto.DataCriacao = DateTime.Now;
-            objeto.DataAlteracao = DateTime.Now;
-            await _iTransacao.Adicionar(objeto);
+            foreach(var objeto in listaObjetos)
+            {
+                objeto.DataCriacao = DateTime.Now;
+                objeto.DataAlteracao = DateTime.Now;
+            }
+            //objeto.DataCriacao = DateTime.Now;
+            //objeto.DataAlteracao = DateTime.Now;
+            await _iTransacao.AdicionarTransacoes(listaObjetos);
         }
 
         public async Task AtualizarTransacao(TransacaoEntity objeto)

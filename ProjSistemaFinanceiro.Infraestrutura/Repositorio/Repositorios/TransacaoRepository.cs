@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
@@ -16,6 +17,19 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
     {
         public TransacaoRepository(ContextoBase context) : base(context) {}
 
+        public async Task AdicionarTransacoes(List<TransacaoEntity> listaObjetos)
+        {
+
+            //foreach(var objeto in listaObjeto)
+            //{
+            //    objeto.DataCriacao = DateTime.Now;
+            //    objeto.DataAlteracao = DateTime.Now;
+            //    await base._context.Transacoes.AddAsync(objeto);
+            //    await _context.SaveChangesAsync();
+            //}
+            base._context.Transacoes?.AddRangeAsync(listaObjetos);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? tipoControleId = null, Guid? tipoContaId = null, Guid ? transacaoId = null)
         {
