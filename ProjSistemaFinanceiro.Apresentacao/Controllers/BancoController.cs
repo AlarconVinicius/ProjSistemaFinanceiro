@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Banco;
+using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
@@ -12,34 +15,42 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
     public class BancoController : ControllerBase
     {
         private readonly IBancoService _iBancoService;
+        private readonly IMapper _mapper;
 
-        public BancoController(IBancoService iBancoService)
+        public BancoController(IBancoService iBancoService, IMapper mapper)
         {
             _iBancoService = iBancoService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task AdicionarBanco(BancoEntity objeto)
+        public async Task AdicionarBanco(BancoAddDTO objeto)
         {
-            await _iBancoService.AdicionarBanco(objeto);
+            var objetoMapeado = _mapper.Map<BancoEntity>(objeto);
+            await _iBancoService.AdicionarBanco(objetoMapeado);
         }
 
         [HttpGet]
-        public async Task<ResultadoPagina<BancoEntity>> ListarBancos([FromQuery] Guid? bancoId = null)
+        public async Task<ResultadoPagina<BancoViewDTO>> ListarBancos([FromQuery] Guid? bancoId = null)
         {
             var objeto = await _iBancoService.ListarBancos(bancoId);
-            //var objetoMapeado = _mapper.Map<List<BancoView>>(objeto);
-            return objeto;
+            var objetoMapeado = _mapper.Map<List<BancoViewDTO>>(objeto.Resultado);
+            return new ResultadoPagina<BancoViewDTO>
+            {
+                Resultado = objetoMapeado
+            };
         }
         [HttpPut]
-        public async Task AtualizarBanco(BancoEntity objeto)
+        public async Task AtualizarBanco(BancoUpdDTO objeto)
         {
-            await _iBancoService.AtualizarBanco(objeto);
+            var objetoMapeado = _mapper.Map<BancoEntity>(objeto);
+            await _iBancoService.AtualizarBanco(objetoMapeado);
         }
         [HttpDelete]
-        public async Task DeletarBanco(BancoEntity objeto)
+        public async Task DeletarBanco(BancoUpdDTO objeto)
         {
-            await _iBancoService.DeletarBanco(objeto);
+            var objetoMapeado = _mapper.Map<BancoEntity>(objeto);
+            await _iBancoService.DeletarBanco(objetoMapeado);
         }
     }
 }

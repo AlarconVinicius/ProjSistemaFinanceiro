@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ProjSistemaFinanceiro.Apresentacao.DTO.Configuracao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IGenerica;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
@@ -38,6 +39,9 @@ builder.Services.AddScoped<INomeCartaoService, NomeCartaoService>();
 builder.Services.AddScoped<ITipoContaService, TipoContaService>();
 builder.Services.AddScoped<ITipoControleService, TipoControleService>();
 builder.Services.AddScoped<ITransacaoService, TransacaoService>();
+
+// AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 var app = builder.Build();
 
