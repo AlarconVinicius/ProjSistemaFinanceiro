@@ -39,9 +39,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         }
 
         [HttpGet]
-        public async Task<ResultadoPagina<TransacaoViewDTO>> ListarTransacoes([FromQuery] Guid? transacaoId = null)
+        public async Task<ResultadoPagina<TransacaoViewDTO>> ListarTransacoes([FromQuery] Guid? tipoControleId = null, [FromQuery] Guid? tipoContaId = null, [FromQuery] Guid? transacaoId = null)
         {
-            var objeto = await _iTransacaoService.ListarTransacoes(transacaoId);
+            var objeto = await _iTransacaoService.ListarTransacoes(tipoControleId, tipoContaId, transacaoId);
             var objetoMapeado = _mapper.Map<List<TransacaoViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<TransacaoViewDTO>
             {
