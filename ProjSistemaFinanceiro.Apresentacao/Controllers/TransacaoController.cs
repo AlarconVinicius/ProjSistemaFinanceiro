@@ -7,6 +7,7 @@ using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
+using ProjSistemaFinanceiro.Entidade.Filtros;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 using System;
 using System.Drawing;
@@ -39,9 +40,9 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         }
 
         [HttpGet]
-        public async Task<ResultadoPagina<TransacaoViewDTO>> ListarTransacoes([FromQuery] Guid? tipoControleId = null, [FromQuery] Guid? tipoContaId = null, [FromQuery] Guid? transacaoId = null)
+        public async Task<ResultadoPagina<TransacaoViewDTO>> ListarTransacoes([FromQuery]TransacaoFiltro? filtro = null)
         {
-            var objeto = await _iTransacaoService.ListarTransacoes(tipoControleId, tipoContaId, transacaoId);
+            var objeto = await _iTransacaoService.ListarTransacoes(filtro);
             var objetoMapeado = _mapper.Map<List<TransacaoViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<TransacaoViewDTO>
             {

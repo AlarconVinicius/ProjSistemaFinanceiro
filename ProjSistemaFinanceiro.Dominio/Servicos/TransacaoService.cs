@@ -1,6 +1,7 @@
 ﻿using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
+using ProjSistemaFinanceiro.Entidade.Filtros;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 using System;
 using System.Collections.Generic;
@@ -41,9 +42,9 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
             await _iTransacao.Deletar(id);
         }
 
-        public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? tipoControleId = null, Guid? tipoContaId = null, Guid? transacaoId = null)
+        public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(TransacaoFiltro? filtro = null)
         {
-            return await _iTransacao.ListarTransacoes(tipoControleId, tipoContaId, transacaoId);
+            return await _iTransacao.ListarTransacoes(filtro);
         }
     }
 }

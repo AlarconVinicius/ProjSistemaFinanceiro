@@ -1,4 +1,5 @@
 ﻿using ProjSistemaFinanceiro.Entidade.Entidades;
+using ProjSistemaFinanceiro.Entidade.Filtros;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IServicos
         Task AdicionarTransacoes(List<TransacaoEntity> listaObjeto);
         Task AtualizarTransacao(TransacaoEntity objeto);
         Task DeletarTransacao(Guid id);
-        Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(Guid? tipoControleId = null, Guid? tipoContaId = null, Guid? transacaoId = null);
+        Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(TransacaoFiltro? filtro = null);
     }
 }
