@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoControle;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
@@ -13,30 +15,36 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
     public class TipoControleController : ControllerBase
     {
         private readonly ITipoControleService _iTipoControleService;
+        private readonly IMapper _mapper;
 
-        public TipoControleController(ITipoControleService iTipoControleService)
+        public TipoControleController(ITipoControleService iTipoControleService, IMapper mapper)
         {
             _iTipoControleService = iTipoControleService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task AdicionarTipoControle(TipoControleEntity objeto)
+        public async Task AdicionarTipoControle(TipoControleAddDTO objeto)
         {
-            //var objetoMapeado = _mapper.Map<TipoControle>(objeto);
-            await _iTipoControleService.AdicionarTipoControle(objeto);
+            var objetoMapeado = _mapper.Map<TipoControleEntity>(objeto);
+            await _iTipoControleService.AdicionarTipoControle(objetoMapeado);
         }
 
         [HttpGet]
-        public async Task<ResultadoPagina<TipoControleEntity>> ListarTiposControle([FromQuery] Guid? tipoControleId = null)
+        public async Task<ResultadoPagina<TipoControleViewDTO>> ListarTiposControle([FromQuery] Guid? tipoControleId = null)
         {
             var objeto = await _iTipoControleService.ListarTiposControle(tipoControleId);
-            //var objetoMapeado = _mapper.Map<List<TipoControleView>>(objeto);
-            return objeto;
+            var objetoMapeado = _mapper.Map<List<TipoControleViewDTO>>(objeto);
+            return new ResultadoPagina<TipoControleViewDTO>
+            {
+                Resultado = objetoMapeado
+            };
         }
         [HttpPut]
-        public async Task AtualizarTipoControle(TipoControleEntity objeto)
+        public async Task AtualizarTipoControle(TipoControleUpdDTO objeto)
         {
-            await _iTipoControleService.AtualizarTipoControle(objeto);
+            var objetoMapeado = _mapper.Map<TipoControleEntity>(objeto);
+            await _iTipoControleService.AtualizarTipoControle(objetoMapeado);
         }
         [HttpDelete]
         public async Task DeletarTipoControle([FromQuery] Guid id)
