@@ -31,7 +31,7 @@ builder.Services.AddScoped<ITipoConta, TipoContaRepository>();
 builder.Services.AddScoped<ITipoControle, TipoControleRepository>();
 builder.Services.AddScoped<ITransacao, TransacaoRepository>();
 
-// SERVIÇO DOMINIO
+// SERVIï¿½O DOMINIO
 builder.Services.AddScoped<IBancoService, BancoService>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 builder.Services.AddScoped<IMetodoPagamentoService, MetodoPagamentoService>();
@@ -43,6 +43,9 @@ builder.Services.AddScoped<ITransacaoService, TransacaoService>();
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
+// Cors
+
+builder.Services.AddCors();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,6 +54,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+app.UseCors(p => p
+    .AllowAnyHeader()
+    .AllowAnyOrigin()
+    .AllowAnyMethod());
 
 app.UseHttpsRedirection();
 
