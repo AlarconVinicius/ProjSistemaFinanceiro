@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoConta;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
@@ -13,30 +14,36 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
     public class TipoContaController : ControllerBase
     {
         private readonly ITipoContaService _iTipoContaService;
+        private readonly IMapper _mapper;
 
-        public TipoContaController(ITipoContaService iTipoContaService)
+        public TipoContaController(ITipoContaService iTipoContaService, IMapper mapper)
         {
             _iTipoContaService = iTipoContaService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task AdicionarTipoConta(TipoContaEntity objeto)
+        public async Task AdicionarTipoConta(TipoContaAddDTO objeto)
         {
-            //var objetoMapeado = _mapper.Map<TipoConta>(objeto);
-            await _iTipoContaService.AdicionarTipoConta(objeto);
+            var objetoMapeado = _mapper.Map<TipoContaEntity>(objeto);
+            await _iTipoContaService.AdicionarTipoConta(objetoMapeado);
         }
 
         [HttpGet]
-        public async Task<ResultadoPagina<TipoContaEntity>> ListarTiposConta([FromQuery] Guid? tipoContaId = null)
+        public async Task<ResultadoPagina<TipoContaViewDTO>> ListarTiposConta([FromQuery] Guid? tipoContaId = null)
         {
             var objeto = await _iTipoContaService.ListarTiposConta(tipoContaId);
-            //var objetoMapeado = _mapper.Map<List<TipoContaView>>(objeto);
-            return objeto;
+            var objetoMapeado = _mapper.Map<List<TipoContaViewDTO>>(objeto);
+            return new ResultadoPagina<TipoContaViewDTO>
+            {
+                Resultado = objetoMapeado
+            };
         }
         [HttpPut]
-        public async Task AtualizarTipoConta(TipoContaEntity objeto)
+        public async Task AtualizarTipoConta(TipoContaUpdDTO objeto)
         {
-            await _iTipoContaService.AtualizarTipoConta(objeto);
+            var objetoMapeado = _mapper.Map<TipoContaEntity>(objeto);
+            await _iTipoContaService.AtualizarTipoConta(objetoMapeado);
         }
         [HttpDelete]
         public async Task DeletarTipoConta([FromQuery] Guid id)
