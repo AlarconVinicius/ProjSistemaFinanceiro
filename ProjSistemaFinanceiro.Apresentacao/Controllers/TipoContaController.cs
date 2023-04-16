@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoConta;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
