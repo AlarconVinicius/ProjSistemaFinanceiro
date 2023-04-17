@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.NomeCartao;
-using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
-using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
@@ -16,18 +14,38 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
     {
         private readonly INomeCartaoService _iNomeCartaoService;
         private readonly IMapper _mapper;
+        private IValidator<NomeCartaoAddDTO> _addValidator;
+        private IValidator<NomeCartaoUpdDTO> _updValidator;
 
-        public NomeCartaoController(INomeCartaoService iNomeCartaoService, IMapper mapper)
+        public NomeCartaoController(INomeCartaoService iNomeCartaoService, IMapper mapper, IValidator<NomeCartaoAddDTO> addValidator, IValidator<NomeCartaoUpdDTO> updValidator)
         {
             _iNomeCartaoService = iNomeCartaoService;
             _mapper = mapper;
+            _addValidator = addValidator;
+            _updValidator = updValidator;
         }
 
         [HttpPost]
-        public async Task AdicionarNomeCartao(NomeCartaoAddDTO objeto)
+        public async Task<ActionResult> AdicionarNomeCartao(NomeCartaoAddDTO objeto)
         {
+            var validacao = await _addValidator.ValidateAsync(objeto);
+            if (!validacao.IsValid)
+            {
+                var resultado = new ResultadoErroPagina
+                {
+                    Titulo = "Ocorreu um ou mais erros de validação.",
+                    Status = 400,
+                    //Erros = result.Errors.Select(e => e.ErrorMessage).ToList()
+                };
+                validacao.Errors.ForEach(error =>
+                {
+                    resultado.AdicionarErro(error.PropertyName, error.ErrorMessage);
+                });
+                return BadRequest(resultado);
+            }
             var objetoMapeado = _mapper.Map<NomeCartaoEntity>(objeto);
             await _iNomeCartaoService.AdicionarNomeCartao(objetoMapeado);
+            return Ok();
         }
 
         [HttpGet]
@@ -37,14 +55,32 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             var objetoMapeado = _mapper.Map<List<NomeCartaoViewDTO>>(objeto);
             return new ResultadoPagina<NomeCartaoViewDTO>
             {
+                Titulo = "Listagem dos nomes dos cartões.",
+                Status = 200,
                 Resultado = objetoMapeado
             };
         }
         [HttpPut]
-        public async Task AtualizarNomeCartao(NomeCartaoUpdDTO objeto)
+        public async Task<ActionResult> AtualizarNomeCartao(NomeCartaoUpdDTO objeto)
         {
+            var validacao = await _updValidator.ValidateAsync(objeto);
+            if (!validacao.IsValid)
+            {
+                var resultado = new ResultadoErroPagina
+                {
+                    Titulo = "Ocorreu um ou mais erros de validação.",
+                    Status = 400,
+                    //Erros = result.Errors.Select(e => e.ErrorMessage).ToList()
+                };
+                validacao.Errors.ForEach(error =>
+                {
+                    resultado.AdicionarErro(error.PropertyName, error.ErrorMessage);
+                });
+                return BadRequest(resultado);
+            }
             var objetoMapeado = _mapper.Map<NomeCartaoEntity>(objeto);
             await _iNomeCartaoService.AtualizarNomeCartao(objetoMapeado);
+            return Ok();
         }
         [HttpDelete]
         public async Task DeletarNomeCartao([FromQuery] Guid id)
