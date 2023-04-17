@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Banco;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Categoria;
 using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.MetodoPagamento;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
-using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
