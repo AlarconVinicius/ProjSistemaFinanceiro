@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Banco;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
-using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
@@ -16,18 +14,38 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
     {
         private readonly IBancoService _iBancoService;
         private readonly IMapper _mapper;
+        private IValidator<BancoAddDTO> _addValidator;
+        private IValidator<BancoUpdDTO> _updValidator;
 
-        public BancoController(IBancoService iBancoService, IMapper mapper)
+        public BancoController(IBancoService iBancoService, IMapper mapper, IValidator<BancoAddDTO> addValidator, IValidator<BancoUpdDTO> updValidator)
         {
             _iBancoService = iBancoService;
             _mapper = mapper;
+            _addValidator = addValidator;
+            _updValidator = updValidator;
         }
 
         [HttpPost]
-        public async Task AdicionarBanco(BancoAddDTO objeto)
+        public async Task<ActionResult> AdicionarBanco(BancoAddDTO objeto)
         {
+            var validacao = await _addValidator.ValidateAsync(objeto);
+            if (!validacao.IsValid)
+            {
+                var resultado = new ResultadoErroPagina
+                {
+                    Titulo = "Ocorreu um ou mais erros de validação.",
+                    Status = 400,
+                    //Erros = result.Errors.Select(e => e.ErrorMessage).ToList()
+                };
+                validacao.Errors.ForEach(error =>
+                {
+                    resultado.AdicionarErro(error.PropertyName, error.ErrorMessage);
+                });
+                return BadRequest(resultado);
+            }
             var objetoMapeado = _mapper.Map<BancoEntity>(objeto);
             await _iBancoService.AdicionarBanco(objetoMapeado);
+            return Ok();
         }
 
         [HttpGet]
@@ -37,14 +55,32 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             var objetoMapeado = _mapper.Map<List<BancoViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<BancoViewDTO>
             {
+                Titulo = "Listagem dos bancos.",
+                Status = 200,
                 Resultado = objetoMapeado
             };
         }
         [HttpPut]
-        public async Task AtualizarBanco(BancoUpdDTO objeto)
+        public async Task<ActionResult> AtualizarBanco(BancoUpdDTO objeto)
         {
+            var validacao = await _updValidator.ValidateAsync(objeto);
+            if (!validacao.IsValid)
+            {
+                var resultado = new ResultadoErroPagina
+                {
+                    Titulo = "Ocorreu um ou mais erros de validação.",
+                    Status = 400,
+                    //Erros = result.Errors.Select(e => e.ErrorMessage).ToList()
+                };
+                validacao.Errors.ForEach(error =>
+                {
+                    resultado.AdicionarErro(error.PropertyName, error.ErrorMessage);
+                });
+                return BadRequest(resultado);
+            }
             var objetoMapeado = _mapper.Map<BancoEntity>(objeto);
             await _iBancoService.AtualizarBanco(objetoMapeado);
+            return Ok();
         }
         [HttpDelete]
         public async Task DeletarBanco([FromQuery] Guid id)
