@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao;
-using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
-using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.Filtros;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
-using System;
-using System.Drawing;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
@@ -20,23 +15,44 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
     {
         private readonly ITransacaoService _iTransacaoService;
         private readonly IMapper _mapper;
+        private IValidator<TransacaoAddDTO> _addValidator;
+        private IValidator<TransacaoUpdDTO> _updValidator;
 
-        public TransacaoController(ITransacaoService iTransacaoService, IMapper mapper)
+        public TransacaoController(ITransacaoService iTransacaoService, IMapper mapper, IValidator<TransacaoAddDTO> addValidator, IValidator<TransacaoUpdDTO> updValidator)
         {
             _iTransacaoService = iTransacaoService;
             _mapper = mapper;
+            _addValidator = addValidator;
+            _updValidator = updValidator;
         }
 
         [HttpPost]
-        public async Task AdicionarTransacoes(List<TransacaoAddDTO> listaObjetos)
+        public async Task<ActionResult> AdicionarTransacoes(List<TransacaoAddDTO> listaObjetos)
         {
-            foreach(var objeto in listaObjetos)
+            
+            foreach (var objeto in listaObjetos)
             {
+                var validacao = await _addValidator.ValidateAsync(objeto);
+                if (!validacao.IsValid)
+                {
+                    var resultado = new ResultadoErroPagina
+                    {
+                        Titulo = "Ocorreu um ou mais erros de validação.",
+                        Status = 400,
+                        //Erros = result.Errors.Select(e => e.ErrorMessage).ToList()
+                    };
+                    validacao.Errors.ForEach(error =>
+                    {
+                        resultado.AdicionarErro(error.PropertyName, error.ErrorMessage);
+                    });
+                    return BadRequest(resultado);
+                }
                 objeto.DataCompra = DateTime.ParseExact(objeto.DataCompraStr, "dd/MM/yyyy", null);
                 objeto.DataPagamento = DateTime.ParseExact(objeto.DataPagamentoStr, "dd/MM/yyyy", null);
             }
             var objetoMapeado = _mapper.Map<List<TransacaoEntity>>(listaObjetos);
             await _iTransacaoService.AdicionarTransacoes(objetoMapeado);
+            return Ok();
         }
 
         [HttpGet]
@@ -46,16 +62,34 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             var objetoMapeado = _mapper.Map<List<TransacaoViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<TransacaoViewDTO>
             {
+                Titulo = "Listagem das transações.",
+                Status = 200,
                 Resultado = objetoMapeado
             };
         }
         [HttpPut]
-        public async Task AtualizarTransacao(TransacaoUpdDTO objeto)
+        public async Task<ActionResult> AtualizarTransacao(TransacaoUpdDTO objeto)
         {
+            var validacao = await _updValidator.ValidateAsync(objeto);
+            if (!validacao.IsValid)
+            {
+                var resultado = new ResultadoErroPagina
+                {
+                    Titulo = "Ocorreu um ou mais erros de validação.",
+                    Status = 400,
+                    //Erros = result.Errors.Select(e => e.ErrorMessage).ToList()
+                };
+                validacao.Errors.ForEach(error =>
+                {
+                    resultado.AdicionarErro(error.PropertyName, error.ErrorMessage);
+                });
+                return BadRequest(resultado);
+            }
             objeto.DataCompra = DateTime.ParseExact(objeto.DataCompraStr, "dd/MM/yyyy", null);
             objeto.DataPagamento = DateTime.ParseExact(objeto.DataPagamentoStr, "dd/MM/yyyy", null);
             var objetoMapeado = _mapper.Map<TransacaoEntity>(objeto);
             await _iTransacaoService.AtualizarTransacao(objetoMapeado);
+            return Ok();
         }
         [HttpDelete]
         public async Task DeletarTransacao([FromQuery]Guid id)
