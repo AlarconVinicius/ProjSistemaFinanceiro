@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ProjSistemaFinanceiro.Aplicacao.DTO.Configuracao;
 using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Banco;
@@ -8,6 +9,7 @@ using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.NomeCartao;
 using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.TipoConta;
 using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.TipoControle;
 using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Transacao;
+using ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Apresentacao.Validadores.Banco;
 using ProjSistemaFinanceiro.Apresentacao.Validadores.Categoria;
 using ProjSistemaFinanceiro.Apresentacao.Validadores.MetodoPagamento;
@@ -20,6 +22,7 @@ using ProjSistemaFinanceiro.Dominio.Interfaces.IGenerica;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
 using ProjSistemaFinanceiro.Identity.Configuracao.ContextoIdentity;
+using ProjSistemaFinanceiro.Identity.Servicos;
 using ProjSistemaFinanceiro.Infraestrutura.Configuracao;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios;
@@ -39,6 +42,12 @@ namespace ProjSistemaFinanceiro.Apresentacao.Ioc
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
 
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ContextoIdentity>()
+                .AddDefaultTokenProviders();
+
+
             // INTERFACE E REPOSITORIO
             services.AddScoped(typeof(IGenerica<>), typeof(GenericoRepository<>));
             services.AddScoped<IBanco, BancoRepository>();
@@ -57,6 +66,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Ioc
             services.AddScoped<ITipoContaService, TipoContaService>();
             services.AddScoped<ITipoControleService, TipoControleService>();
             services.AddScoped<ITransacaoService, TransacaoService>();
+            services.AddScoped<IIdentityService, IdentityService>();
 
             // AutoMapper
             services.AddAutoMapper(typeof(AutoMapperConfig));

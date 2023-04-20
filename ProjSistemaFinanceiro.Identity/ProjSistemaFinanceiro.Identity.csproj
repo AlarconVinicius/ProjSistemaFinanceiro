@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProjSistemaFinanceiro.Aplicacao\ProjSistemaFinanceiro.Aplicacao.csproj" />
+  </ItemGroup>
+
 </Project>
