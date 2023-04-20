@@ -19,6 +19,7 @@ using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IGenerica;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Dominio.Servicos;
+using ProjSistemaFinanceiro.Identity.Configuracao.ContextoIdentity;
 using ProjSistemaFinanceiro.Infraestrutura.Configuracao;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios;
@@ -29,14 +30,14 @@ namespace ProjSistemaFinanceiro.Apresentacao.Ioc
     {
         public static void RegistrarServicos(this IServiceCollection services, IConfiguration configuration)
         {
-            // DB
+            // CONTEXTOS
             services.AddDbContext<ContextoBase>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
 
-            //services.AddDbContext<IdentityDataContext>(options =>
-            //    options.UseSqlServer(configuration.GetConnectionString("Way2CommerceConnection"))
-            //);
+            services.AddDbContext<ContextoIdentity>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("Way2CommerceConnection"))
+            );
 
             // INTERFACE E REPOSITORIO
             services.AddScoped(typeof(IGenerica<>), typeof(GenericoRepository<>));

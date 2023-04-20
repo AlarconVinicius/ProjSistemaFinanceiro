@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjSistemaFinanceiro.Identity\ProjSistemaFinanceiro.Identity.csproj" />
     <ProjectReference Include="..\ProjSistemaFinanceiro.Infraestrutura\ProjSistemaFinanceiro.Infraestrutura.csproj" />
   </ItemGroup>
 
