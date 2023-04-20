@@ -11,6 +11,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IClasses
 {
     public interface IBanco : IGenerica<BancoEntity>
     {
-        Task<ResultadoPagina<BancoEntity>> ListarBancos(Guid? bancoId = null); 
+        Task<ResultadoPagina<BancoEntity>> ListarBancos(string usuarioId, Guid? bancoId = null); 
     }
 }

@@ -17,11 +17,12 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
         public BancoRepository(ContextoBase context) : base(context) {}
 
 
-        public async Task<ResultadoPagina<BancoEntity>> ListarBancos(Guid? bancoId = null)
+        public async Task<ResultadoPagina<BancoEntity>> ListarBancos(string usuarioId, Guid? bancoId = null)
         {
             string bancoIdStr = bancoId?.ToString();
 
             var query = base._context.Bancos
+                .Where(q => q.UsuarioId == usuarioId)
                 .AsQueryable();
             if (!string.IsNullOrEmpty(bancoIdStr))
             {

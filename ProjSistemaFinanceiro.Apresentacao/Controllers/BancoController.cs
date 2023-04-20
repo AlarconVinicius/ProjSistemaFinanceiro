@@ -11,6 +11,7 @@ using ProjSistemaFinanceiro.Identity.Constantes;
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
     [Route("api/bancos")]
+    [Authorize]
     [ApiController]
     public class BancoController : ControllerBase
     {
@@ -27,6 +28,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             _updValidator = updValidator;
         }
 
+        //[Authorize(Roles = Roles.Admin)]
         [HttpPost]
         public async Task<ActionResult> AdicionarBanco(BancoAddDTO objeto)
         {
@@ -50,6 +52,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             return Ok();
         }
 
+        [Authorize(Policy = Policies.HorarioComercial)]
         [HttpGet]
         public async Task<ResultadoPagina<BancoViewDTO>> ListarBancos([FromQuery] Guid? bancoId = null)
         {

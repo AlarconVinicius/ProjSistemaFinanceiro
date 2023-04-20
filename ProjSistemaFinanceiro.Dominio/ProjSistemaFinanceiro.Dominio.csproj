@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ProjSistemaFinanceiro.Entidade\ProjSistemaFinanceiro.Entidade.csproj" />
+    <ProjectReference Include="..\ProjSistemaFinanceiro.Identity\ProjSistemaFinanceiro.Identity.csproj" />
   </ItemGroup>
 
 </Project>
