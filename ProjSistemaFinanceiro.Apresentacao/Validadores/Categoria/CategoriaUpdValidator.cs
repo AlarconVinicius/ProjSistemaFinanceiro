@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Categoria;
+using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Categoria;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Validadores.Categoria
 {

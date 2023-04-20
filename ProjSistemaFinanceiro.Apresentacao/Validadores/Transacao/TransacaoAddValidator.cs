@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
-using System.Text.RegularExpressions;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoConta;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao;
+using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Transacao;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Validadores.Transacao
 {

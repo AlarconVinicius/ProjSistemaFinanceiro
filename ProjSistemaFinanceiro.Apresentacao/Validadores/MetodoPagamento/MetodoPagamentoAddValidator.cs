@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.MetodoPagamento;
+using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.MetodoPagamento;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Validadores.MetodoPagamento
 {

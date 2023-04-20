@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao;
+using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Transacao;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Validadores.Transacao
 {
