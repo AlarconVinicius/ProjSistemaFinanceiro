@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();
 builder.Services.AddAuthentication(builder.Configuration);
+builder.Services.AddAuthorizationPolicies();
 // Injeção de Dependência
 builder.Services.RegistrarServicos(builder.Configuration);
 
