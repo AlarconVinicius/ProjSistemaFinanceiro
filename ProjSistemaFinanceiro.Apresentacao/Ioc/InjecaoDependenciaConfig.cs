@@ -36,7 +36,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Ioc
             );
 
             services.AddDbContext<ContextoIdentity>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("Way2CommerceConnection"))
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
 
             // INTERFACE E REPOSITORIO
