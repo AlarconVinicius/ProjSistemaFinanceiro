@@ -21,4 +21,4 @@ namespace ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Usuario
             Erros.AddRange(erros);
     }
 }
-}
+

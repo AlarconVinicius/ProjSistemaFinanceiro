@@ -14,14 +14,15 @@ namespace ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Usuario
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string AccessToken { get; private set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public string RefreshToken { get; private set; }
+        public DateTime? RefreshToken { get; private set; }
+        //public string RefreshToken { get; private set; }
 
         public List<string> Erros { get; private set; }
 
         public UsuarioLoginDTOResponse() =>
             Erros = new List<string>();
 
-        public UsuarioLoginDTOResponse(bool sucesso, string accessToken, string refreshToken) : this()
+        public UsuarioLoginDTOResponse(bool sucesso, string accessToken, DateTime refreshToken) : this()
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;
