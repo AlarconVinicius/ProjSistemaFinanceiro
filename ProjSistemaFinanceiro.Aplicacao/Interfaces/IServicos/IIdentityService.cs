@@ -8,8 +8,8 @@ namespace ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos
 {
     public interface IIdentityService
     {
-        Task<UsuarioCadastroDTOResponse> CadastrarUsuario(UsuarioCadastroDTO usuarioCadastro);
-        Task<UsuarioLoginDTOResponse> Login(UsuarioLoginDTO usuarioLogin);
-        Task<UsuarioLoginDTOResponse> LoginSemSenha(string usuarioId);
+        //Task<UsuarioCadastroDTOResponse> CadastrarUsuario(UsuarioCadastroDTO usuarioCadastro);
+        //Task<UsuarioLoginDTOResponse> Login(UsuarioLoginDTO usuarioLogin);
+        //Task<UsuarioLoginDTOResponse> LoginSemSenha(string usuarioId);
     }
 }
