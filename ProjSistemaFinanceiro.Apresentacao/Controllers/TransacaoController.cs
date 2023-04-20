@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Transacao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Transacao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.Filtros;

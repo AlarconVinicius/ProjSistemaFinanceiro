@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ProjSistemaFinanceiro.Aplicacao.DTO.Configuracao;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Banco;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Categoria;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.MetodoPagamento;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.NomeCartao;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.TipoConta;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.TipoControle;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Transacao;
+using ProjSistemaFinanceiro.Apresentacao.DTO.Configuracao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Banco;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Categoria;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.MetodoPagamento;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.NomeCartao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.TipoConta;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.TipoControle;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Transacao;
 using ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Apresentacao.Validadores.Banco;
 using ProjSistemaFinanceiro.Apresentacao.Validadores.Categoria;
@@ -27,7 +27,7 @@ using ProjSistemaFinanceiro.Infraestrutura.Configuracao;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios;
 
-namespace ProjSistemaFinanceiro.Apresentacao.Ioc
+namespace ProjSistemaFinanceiro.Apresentacao.IoC
 {
     public static class InjecaoDependenciaConfig
     {

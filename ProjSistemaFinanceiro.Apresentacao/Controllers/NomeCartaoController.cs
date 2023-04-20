@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.NomeCartao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.NomeCartao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;

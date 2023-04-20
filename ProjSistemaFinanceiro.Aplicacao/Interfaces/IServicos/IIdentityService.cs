@@ -1,4 +1,4 @@
-﻿using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Usuario;
+﻿using ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;

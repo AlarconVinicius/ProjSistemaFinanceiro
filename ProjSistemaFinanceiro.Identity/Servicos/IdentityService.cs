@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Usuario;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario;
 using ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Identity.Configuracao.JWT;
 using System;

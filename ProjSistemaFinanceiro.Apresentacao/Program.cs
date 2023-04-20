@@ -1,5 +1,5 @@
 using ProjSistemaFinanceiro.Apresentacao.Extensoes;
-using ProjSistemaFinanceiro.Apresentacao.Ioc;
+using ProjSistemaFinanceiro.Apresentacao.IoC;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);

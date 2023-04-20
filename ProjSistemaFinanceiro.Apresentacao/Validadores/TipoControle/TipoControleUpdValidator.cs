@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.TipoControle;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.TipoControle;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Validadores.TipoControle
 {

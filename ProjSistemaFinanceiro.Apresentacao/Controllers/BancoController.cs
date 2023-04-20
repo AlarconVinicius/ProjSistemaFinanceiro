@@ -2,10 +2,11 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Banco;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Banco;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
+using ProjSistemaFinanceiro.Identity.Constantes;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
@@ -49,7 +50,6 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             return Ok();
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<ResultadoPagina<BancoViewDTO>> ListarBancos([FromQuery] Guid? bancoId = null)
         {

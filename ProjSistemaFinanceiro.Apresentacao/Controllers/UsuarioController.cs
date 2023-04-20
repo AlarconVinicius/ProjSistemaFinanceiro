@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Usuario;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario;
 using ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos;
 using System.Net;
 using System.Security.Claims;
