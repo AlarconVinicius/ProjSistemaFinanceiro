@@ -1,3 +1,4 @@
+using ProjSistemaFinanceiro.Apresentacao.Extensoes;
 using ProjSistemaFinanceiro.Apresentacao.Ioc;
 using System.Globalization;
 
@@ -8,8 +9,8 @@ builder.Services.AddCors();
 
 builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddSwagger();
+builder.Services.AddAuthentication(builder.Configuration);
 // Injeção de Dependência
 builder.Services.RegistrarServicos(builder.Configuration);
 
@@ -23,6 +24,7 @@ app.UseCors(p => p
     .AllowAnyOrigin()
     .AllowAnyMethod());
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

@@ -52,7 +52,8 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
         {
             var result = await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha, false, true);
             if (result.Succeeded)
-                return await GerarCredenciais(usuarioLogin.Email);
+                return await GerarToken(usuarioLogin.Email);
+                //return await GerarCredenciais(usuarioLogin.Email);
 
             var usuarioLoginResponse = new UsuarioLoginDTOResponse(); // Atentar aqui
             if (!result.Succeeded)
@@ -90,9 +91,26 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
             return new UsuarioLoginDTOResponse
                 (
                     sucesso: true,
-                    token: token,
-                    dataExpiracao: dataExpiracao
+                    accessToken: token,
+                    refreshToken: dataExpiracao
                 );
+        }
+
+        public async Task<IList<Claim>> ObterClaims(IdentityUser user)
+        {
+            var claims = await _userManager.GetClaimsAsync(user);
+            var roles = await _userManager.GetRolesAsync(user);
+
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, DateTime.Now.ToString()));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()));
+
+            foreach (var role in roles)
+                claims.Add(new Claim("role", role));
+
+            return claims;
         }
 
     }

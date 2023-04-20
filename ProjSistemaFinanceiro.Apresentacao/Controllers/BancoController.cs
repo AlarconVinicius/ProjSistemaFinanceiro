@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Aplicacao.DTO.DTOs.Banco;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
@@ -48,6 +49,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ResultadoPagina<BancoViewDTO>> ListarBancos([FromQuery] Guid? bancoId = null)
         {
