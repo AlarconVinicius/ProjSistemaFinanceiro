@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjSistemaFinanceiro.Entidade.Entidades
 {
     public class TransacaoEntity : BaseEntity
     {
+        [Column(Order = 2)]
+        public string UsuarioId { get; set; }
+
         [ForeignKey("TipoControle")]
         public Guid TipoControleId { get; set; }
         public virtual TipoControleEntity? TipoControle { get; set; }
