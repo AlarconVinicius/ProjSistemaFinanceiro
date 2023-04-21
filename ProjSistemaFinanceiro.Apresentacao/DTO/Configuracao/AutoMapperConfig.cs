@@ -39,8 +39,8 @@ namespace ProjSistemaFinanceiro.Apresentacao.DTO.Configuracao
                 .ForMember(cvm => cvm.DataCriacao, options => options.MapFrom(te => te.DataCriacao.ToString("dd/MM/yyyy")));
 
             CreateMap<TipoContaAddDTO, TipoContaEntity>();
-            CreateMap<TipoContaUpdDTO, CategoriaEntity>();
-            CreateMap<TipoContaViewDTO, CategoriaEntity>().ReverseMap()
+            CreateMap<TipoContaUpdDTO, TipoContaEntity>();
+            CreateMap<TipoContaViewDTO, TipoContaEntity>().ReverseMap()
                 .ForMember(cvm => cvm.DataAlteracao, options => options.MapFrom(te => te.DataAlteracao.ToString("dd/MM/yyyy")))
                 .ForMember(cvm => cvm.DataCriacao, options => options.MapFrom(te => te.DataCriacao.ToString("dd/MM/yyyy")));
 
