@@ -32,12 +32,26 @@ namespace ProjSistemaFinanceiro.Dominio.Servicos
 
         public async Task AtualizarBanco(BancoEntity objeto)
         {
-            objeto.DataAlteracao = DateTime.Now;
-            await _iBanco.Atualizar(objeto);
+            var usuarioId = await AutenticacaoHelper.ObterUsuarioId(_httpContextAccessor);
+            var objetoDb = await _iBanco.ObterPorId(objeto.Id);
+            if (objetoDb.UsuarioId != usuarioId)
+            {
+                throw new Exception("Você não tem permissão para atualizar este registro.");
+            }
+            objetoDb.Nome = objeto.Nome;
+            objetoDb.DataAlteracao = DateTime.Now;
+
+            await _iBanco.Atualizar(objetoDb);
         }
 
         public async Task DeletarBanco(Guid id)
         {
+            var usuarioId = await AutenticacaoHelper.ObterUsuarioId(_httpContextAccessor);
+            var objetoDb = await _iBanco.ObterPorId(id);
+            if (objetoDb.UsuarioId != usuarioId)
+            {
+                throw new Exception("Você não tem permissão para deletar este registro.");
+            }
             await _iBanco.Deletar(id);
         }
 
