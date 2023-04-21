@@ -52,7 +52,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         public async Task<ResultadoPagina<TipoControleViewDTO>> ListarTiposControle([FromQuery] Guid? tipoControleId = null)
         {
             var objeto = await _iTipoControleService.ListarTiposControle(tipoControleId);
-            var objetoMapeado = _mapper.Map<List<TipoControleViewDTO>>(objeto);
+            var objetoMapeado = _mapper.Map<List<TipoControleViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<TipoControleViewDTO>
             {
                 Titulo = "Listagem dos tipos de controles.",

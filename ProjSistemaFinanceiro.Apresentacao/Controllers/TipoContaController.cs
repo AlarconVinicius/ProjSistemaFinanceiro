@@ -52,7 +52,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         public async Task<ResultadoPagina<TipoContaViewDTO>> ListarTiposConta([FromQuery] Guid? tipoContaId = null)
         {
             var objeto = await _iTipoContaService.ListarTiposConta(tipoContaId);
-            var objetoMapeado = _mapper.Map<List<TipoContaViewDTO>>(objeto);
+            var objetoMapeado = _mapper.Map<List<TipoContaViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<TipoContaViewDTO>
             {
                 Titulo = "Listagem dos tipos de contas.",
