@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Aplicacao.DTOs.Categoria;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
@@ -8,6 +9,7 @@ using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
+    [Authorize]
     [Route("api/categorias")]
     [ApiController]
     public class CategoriaController : ControllerBase

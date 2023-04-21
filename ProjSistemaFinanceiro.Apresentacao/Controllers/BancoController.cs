@@ -10,8 +10,8 @@ using ProjSistemaFinanceiro.Identity.Constantes;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
-    [Route("api/bancos")]
     [Authorize]
+    [Route("api/bancos")]
     [ApiController]
     public class BancoController : ControllerBase
     {
@@ -52,7 +52,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             return Ok();
         }
 
-        [Authorize(Policy = Policies.HorarioComercial)]
+        //[Authorize(Policy = Policies.HorarioComercial)]
         [HttpGet]
         public async Task<ResultadoPagina<BancoViewDTO>> ListarBancos([FromQuery] Guid? bancoId = null)
         {

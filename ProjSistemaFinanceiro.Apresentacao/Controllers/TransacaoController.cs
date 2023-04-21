@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Aplicacao.DTOs.Transacao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
@@ -9,6 +10,7 @@ using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
+    [Authorize]
     [Route("api/transacoes")]
     [ApiController]
     public class TransacaoController : ControllerBase
