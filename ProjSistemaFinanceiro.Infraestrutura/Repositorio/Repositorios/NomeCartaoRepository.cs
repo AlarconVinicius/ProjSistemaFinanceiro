@@ -17,11 +17,12 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
         public NomeCartaoRepository(ContextoBase context) : base(context) {}
 
 
-        public async Task<ResultadoPagina<NomeCartaoEntity>> ListarNomeCartoes(Guid? nomeCartaoId = null)
+        public async Task<ResultadoPagina<NomeCartaoEntity>> ListarNomeCartoes(string usuarioId, Guid? nomeCartaoId = null)
         {
             string nomeCartaoIdStr = nomeCartaoId?.ToString();
 
             var query = base._context.NomeCartoes
+                .Where(q => q.UsuarioId == usuarioId)
                 .AsQueryable();
             if (!string.IsNullOrEmpty(nomeCartaoIdStr))
             {
