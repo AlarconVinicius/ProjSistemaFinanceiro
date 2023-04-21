@@ -38,7 +38,7 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<T>> ListarTodos()
+        public async Task<List<T>> ObterTodos()
         {
             return await _context.Set<T>().ToListAsync();
         }
