@@ -17,11 +17,12 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
         public TipoControleRepository(ContextoBase context) : base(context) {}
 
 
-        public async Task<ResultadoPagina<TipoControleEntity>> ListarTiposControle(Guid? tipoControleId = null)
+        public async Task<ResultadoPagina<TipoControleEntity>> ListarTiposControle(string usuarioId, Guid? tipoControleId = null)
         {
             string tipoControleIdStr = tipoControleId?.ToString();
 
             var query = base._context.TipoControles
+                .Where(q => q.UsuarioId == usuarioId)
                 .AsQueryable();
             if (!string.IsNullOrEmpty(tipoControleIdStr))
             {
@@ -34,5 +35,6 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
             };
 
         }
+
     }
 }
