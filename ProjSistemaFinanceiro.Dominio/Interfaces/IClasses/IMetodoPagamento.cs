@@ -11,6 +11,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IClasses
 {
     public interface IMetodoPagamento : IGenerica<MetodoPagamentoEntity>
     {
-        Task<ResultadoPagina<MetodoPagamentoEntity>> ListarMetodosPagamento(Guid? metodoPagamentoId = null);
+        Task<ResultadoPagina<MetodoPagamentoEntity>> ListarMetodosPagamento(string usuarioId, Guid? metodoPagamentoId = null);
     }
 }

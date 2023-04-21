@@ -17,11 +17,12 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
         public MetodoPagamentoRepository(ContextoBase context) : base(context) {}
 
 
-        public async Task<ResultadoPagina<MetodoPagamentoEntity>> ListarMetodosPagamento(Guid? metodoPagamentoId = null)
+        public async Task<ResultadoPagina<MetodoPagamentoEntity>> ListarMetodosPagamento(string usuarioId, Guid? metodoPagamentoId = null)
         {
             string metodoPagamentoIdStr = metodoPagamentoId?.ToString();
 
             var query = base._context.MetodosDePagamentos
+                .Where(q => q.UsuarioId == usuarioId)
                 .AsQueryable();
             if (!string.IsNullOrEmpty(metodoPagamentoIdStr))
             {
