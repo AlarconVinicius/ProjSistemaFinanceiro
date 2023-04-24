@@ -39,7 +39,10 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
 
             var result = await _userManager.CreateAsync(identityUser, usuarioCadastro.Senha);
             if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(identityUser, "user");
                 await _userManager.SetLockoutEnabledAsync(identityUser, false);
+            }
 
             var usuarioCadastroResponse = new UsuarioCadastroDTOResponse(result.Succeeded);
             if (!result.Succeeded && result.Errors.Count() > 0)
@@ -69,6 +72,10 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
             }
 
             return usuarioLoginResponse;
+        }
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         private async Task<UsuarioLoginDTOResponse> GerarToken(string email)

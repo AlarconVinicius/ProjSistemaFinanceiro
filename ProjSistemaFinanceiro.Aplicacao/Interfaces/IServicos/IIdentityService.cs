@@ -11,6 +11,7 @@ namespace ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos
     {
         Task<UsuarioCadastroDTOResponse> CadastrarUsuario(UsuarioCadastroDTO usuarioCadastro);
         Task<UsuarioLoginDTOResponse> Login(UsuarioLoginDTO usuarioLogin);
+        Task Logout();
         //Task<UsuarioLoginDTOResponse> LoginSemSenha(string usuarioId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario;
 using ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos;
@@ -8,7 +9,7 @@ using System.Security.Claims;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
-    [Route("api/usuarios")]
+    [Route("api/auth")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
@@ -45,6 +46,13 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
                 return Ok(resultado);
 
             return Unauthorized(resultado);
+        }
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            await _identityService.Logout();
+            return Ok();
         }
 
     }
