@@ -20,10 +20,11 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
-app.UseCors(p => p
+app.UseCors(builder => builder
+    .SetIsOriginAllowed(orign => true)
+    .AllowAnyMethod()
     .AllowAnyHeader()
-    .AllowAnyOrigin()
-    .AllowAnyMethod());
+    .AllowCredentials());
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
