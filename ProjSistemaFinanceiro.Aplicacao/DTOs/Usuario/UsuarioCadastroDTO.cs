@@ -10,6 +10,14 @@ namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario
     public class UsuarioCadastroDTO
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "O campo Nome deve ter entre 3 e 150 caracteres.")]
+        public string Nome { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "O campo Nome deve ter entre 3 e 150 caracteres.")]
+        public string Sobrenome { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} é inválido")]
         public string Email { get; set; }
 

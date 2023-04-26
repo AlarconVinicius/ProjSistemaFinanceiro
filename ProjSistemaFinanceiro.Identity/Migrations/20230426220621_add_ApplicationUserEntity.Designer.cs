@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjSistemaFinanceiro.Identity.Configuracao.ContextoIdentity;
 
@@ -11,9 +12,10 @@ using ProjSistemaFinanceiro.Identity.Configuracao.ContextoIdentity;
 namespace ProjSistemaFinanceiro.Identity.Migrations
 {
     [DbContext(typeof(ContextoIdentity))]
-    partial class ContextoIdentityModelSnapshot : ModelSnapshot
+    [Migration("20230426220621_add_ApplicationUserEntity")]
+    partial class add_ApplicationUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

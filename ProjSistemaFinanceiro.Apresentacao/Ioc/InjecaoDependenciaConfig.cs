@@ -26,6 +26,7 @@ using ProjSistemaFinanceiro.Identity.Servicos;
 using ProjSistemaFinanceiro.Infraestrutura.Configuracao;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios;
+using ProjSistemaFinanceiro.Identity.Entidades;
 
 namespace ProjSistemaFinanceiro.Apresentacao.IoC
 {
@@ -42,7 +43,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.IoC
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
             );
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUserEntity>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ContextoIdentity>()
                 .AddDefaultTokenProviders();

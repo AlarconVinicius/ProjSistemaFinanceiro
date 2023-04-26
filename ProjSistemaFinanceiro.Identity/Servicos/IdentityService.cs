@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario;
 using ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Identity.Configuracao.JWT;
+using ProjSistemaFinanceiro.Identity.Entidades;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,12 +16,12 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
 {
     public class IdentityService : IIdentityService
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUserEntity> _signInManager;
+        private readonly UserManager<ApplicationUserEntity> _userManager;
         private readonly JwtOptions _jwtOptions;
 
-        public IdentityService(SignInManager<IdentityUser> signInManager,
-                               UserManager<IdentityUser> userManager,
+        public IdentityService(SignInManager<ApplicationUserEntity> signInManager,
+                               UserManager<ApplicationUserEntity> userManager,
                                IOptions<JwtOptions> jwtOptions)
         {
             _signInManager = signInManager;
@@ -30,8 +31,11 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
 
         public async Task<UsuarioCadastroDTOResponse> CadastrarUsuario(UsuarioCadastroDTO usuarioCadastro)
         {
-            var identityUser = new IdentityUser
+            var identityUser = new ApplicationUserEntity
             {
+                Nome = usuarioCadastro.Nome,
+                Sobrenome = usuarioCadastro.Sobrenome,
+                NomeCompleto = $"{usuarioCadastro.Nome} {usuarioCadastro.Sobrenome}",
                 UserName = usuarioCadastro.Email,
                 Email = usuarioCadastro.Email,
                 EmailConfirmed = true
@@ -103,7 +107,7 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
                 );
         }
 
-        public async Task<IList<Claim>> ObterClaims(IdentityUser user)
+        public async Task<IList<Claim>> ObterClaims(ApplicationUserEntity user)
         {
             var claims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
