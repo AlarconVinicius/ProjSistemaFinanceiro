@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario
+namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Auth
 {
-    public class UsuarioCadastroDTO
+    public class AuthCadastroDTO
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(150, MinimumLength = 3, ErrorMessage = "O campo Nome deve ter entre 3 e 150 caracteres.")]

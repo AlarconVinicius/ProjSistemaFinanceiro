@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario
+namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Auth
 {
-    public class UsuarioCadastroDTOResponse
+    public class AuthCadastroDTOResponse
     {
         public bool Sucesso { get; private set; }
         public List<string> Erros { get; private set; }
 
-        public UsuarioCadastroDTOResponse() =>
+        public AuthCadastroDTOResponse() =>
             Erros = new List<string>();
 
-        public UsuarioCadastroDTOResponse(bool sucesso = true) : this() =>
+        public AuthCadastroDTOResponse(bool sucesso = true) : this() =>
             Sucesso = sucesso;
 
         public void AdicionarErros(IEnumerable<string> erros) =>

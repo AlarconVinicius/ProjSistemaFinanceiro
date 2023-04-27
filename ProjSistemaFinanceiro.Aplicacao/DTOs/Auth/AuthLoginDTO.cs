@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario
+namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Auth
 {
-    public class UsuarioLoginDTO
+    public class AuthLoginDTO
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} é inválido")]

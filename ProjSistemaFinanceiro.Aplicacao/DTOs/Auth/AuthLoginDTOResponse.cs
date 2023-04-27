@@ -5,9 +5,9 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario
+namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Auth
 {
-    public class UsuarioLoginDTOResponse
+    public class AuthLoginDTOResponse
     {
         public bool Sucesso => Erros.Count == 0;
 
@@ -19,10 +19,10 @@ namespace ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario
 
         public List<string> Erros { get; private set; }
 
-        public UsuarioLoginDTOResponse() =>
+        public AuthLoginDTOResponse() =>
             Erros = new List<string>();
 
-        public UsuarioLoginDTOResponse(bool sucesso, string accessToken, DateTime refreshToken) : this()
+        public AuthLoginDTOResponse(bool sucesso, string accessToken, DateTime refreshToken) : this()
         {
             AccessToken = accessToken;
             RefreshToken = refreshToken;
