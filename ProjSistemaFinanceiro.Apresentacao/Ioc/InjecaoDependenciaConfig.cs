@@ -58,6 +58,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.IoC
             services.AddScoped<ITipoConta, TipoContaRepository>();
             services.AddScoped<ITipoControle, TipoControleRepository>();
             services.AddScoped<ITransacao, TransacaoRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             // SERVIÇO DOMINIO
             services.AddScoped<IBancoService, BancoService>();
@@ -68,6 +69,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.IoC
             services.AddScoped<ITipoControleService, TipoControleService>();
             services.AddScoped<ITransacaoService, TransacaoService>();
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
             // AutoMapper
             services.AddAutoMapper(typeof(AutoMapperConfig));
