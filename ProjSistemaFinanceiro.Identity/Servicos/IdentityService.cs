@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Auth;
 using ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Identity.Configuracao.JWT;
 using ProjSistemaFinanceiro.Identity.Entidades;
@@ -29,7 +29,7 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
             _jwtOptions = jwtOptions.Value;
         }
 
-        public async Task<UsuarioCadastroDTOResponse> CadastrarUsuario(UsuarioCadastroDTO usuarioCadastro)
+        public async Task<AuthCadastroDTOResponse> CadastrarUsuario(AuthCadastroDTO usuarioCadastro)
         {
             var identityUser = new ApplicationUserEntity
             {
@@ -48,21 +48,21 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
                 await _userManager.SetLockoutEnabledAsync(identityUser, false);
             }
 
-            var usuarioCadastroResponse = new UsuarioCadastroDTOResponse(result.Succeeded);
+            var usuarioCadastroResponse = new AuthCadastroDTOResponse(result.Succeeded);
             if (!result.Succeeded && result.Errors.Count() > 0)
                 usuarioCadastroResponse.AdicionarErros(result.Errors.Select(r => r.Description));
 
             return usuarioCadastroResponse;
         }
 
-        public async Task<UsuarioLoginDTOResponse> Login(UsuarioLoginDTO usuarioLogin)
+        public async Task<AuthLoginDTOResponse> Login(AuthLoginDTO usuarioLogin)
         {
             var result = await _signInManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha, false, true);
             if (result.Succeeded)
                 return await GerarToken(usuarioLogin.Email);
                 //return await GerarCredenciais(usuarioLogin.Email);
 
-            var usuarioLoginResponse = new UsuarioLoginDTOResponse(); // Atentar aqui
+            var usuarioLoginResponse = new AuthLoginDTOResponse(); // Atentar aqui
             if (!result.Succeeded)
             {
                 if (result.IsLockedOut)
@@ -82,7 +82,7 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
             await _signInManager.SignOutAsync();
         }
 
-        private async Task<UsuarioLoginDTOResponse> GerarToken(string email)
+        private async Task<AuthLoginDTOResponse> GerarToken(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             var tokenClaims = await ObterClaims(user);
@@ -99,7 +99,7 @@ namespace ProjSistemaFinanceiro.Identity.Servicos
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            return new UsuarioLoginDTOResponse
+            return new AuthLoginDTOResponse
                 (
                     sucesso: true,
                     accessToken: token,

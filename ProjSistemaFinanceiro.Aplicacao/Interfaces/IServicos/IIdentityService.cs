@@ -1,4 +1,4 @@
-﻿using ProjSistemaFinanceiro.Aplicacao.DTOs.Usuario;
+﻿using ProjSistemaFinanceiro.Aplicacao.DTOs.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,8 @@ namespace ProjSistemaFinanceiro.Aplicacao.Interfaces.IServicos
 {
     public interface IIdentityService
     {
-        Task<UsuarioCadastroDTOResponse> CadastrarUsuario(UsuarioCadastroDTO usuarioCadastro);
-        Task<UsuarioLoginDTOResponse> Login(UsuarioLoginDTO usuarioLogin);
+        Task<AuthCadastroDTOResponse> CadastrarUsuario(AuthCadastroDTO usuarioCadastro);
+        Task<AuthLoginDTOResponse> Login(AuthLoginDTO usuarioLogin);
         Task Logout();
         //Task<UsuarioLoginDTOResponse> LoginSemSenha(string usuarioId);
     }
