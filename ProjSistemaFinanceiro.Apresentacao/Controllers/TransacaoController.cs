@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjSistemaFinanceiro.Aplicacao.DTOs.Transacao;
+using ProjSistemaFinanceiro.Apresentacao.Mapeamentos.Transacao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.Filtros;
@@ -19,6 +20,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         private readonly IMapper _mapper;
         private IValidator<TransacaoAddDTO> _addValidator;
         private IValidator<TransacaoUpdDTO> _updValidator;
+        private TransacaoMapping _transacaoMapping;
 
         public TransacaoController(ITransacaoService iTransacaoService, IMapper mapper, IValidator<TransacaoAddDTO> addValidator, IValidator<TransacaoUpdDTO> updValidator)
         {
@@ -26,6 +28,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             _mapper = mapper;
             _addValidator = addValidator;
             _updValidator = updValidator;
+            _transacaoMapping = new TransacaoMapping();
         }
 
         [HttpPost]
@@ -61,7 +64,12 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         public async Task<ResultadoPagina<TransacaoViewDTO>> ListarTransacoes([FromQuery]TransacaoFiltro? filtro = null)
         {
             var objeto = await _iTransacaoService.ListarTransacoes(filtro);
-            var objetoMapeado = _mapper.Map<List<TransacaoViewDTO>>(objeto.Resultado);
+            //var objetoMapeado = _mapper.Map<List<TransacaoViewDTO>>(objeto.Resultado);
+            var objetoMapeado = new List<TransacaoViewDTO>();
+            foreach (var item in objeto.Resultado)
+            {
+                objetoMapeado.Add(_transacaoMapping.MapToGetDTO(item));
+            }
             return new ResultadoPagina<TransacaoViewDTO>
             {
                 Titulo = "Listagem das transações.",
