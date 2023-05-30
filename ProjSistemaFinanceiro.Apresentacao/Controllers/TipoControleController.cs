@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoControle;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.TipoControle;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
+    [Authorize]
     [Route("api/tipo-controles")]
     [ApiController]
     public class TipoControleController : ControllerBase
@@ -52,7 +54,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         public async Task<ResultadoPagina<TipoControleViewDTO>> ListarTiposControle([FromQuery] Guid? tipoControleId = null)
         {
             var objeto = await _iTipoControleService.ListarTiposControle(tipoControleId);
-            var objetoMapeado = _mapper.Map<List<TipoControleViewDTO>>(objeto);
+            var objetoMapeado = _mapper.Map<List<TipoControleViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<TipoControleViewDTO>
             {
                 Titulo = "Listagem dos tipos de controles.",

@@ -33,17 +33,17 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico
 
         public async Task Deletar(Guid id)
         {
-            var objeto = await PegarPorId(id);
+            var objeto = await ObterPorId(id);
             _context.Set<T>().Remove(objeto);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<T>> ListarTodos()
+        public async Task<List<T>> ObterTodos()
         {
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> PegarPorId(Guid id)
+        public async Task<T> ObterPorId(Guid id)
         {
             return await _context.Set<T>().FindAsync(id);
         }

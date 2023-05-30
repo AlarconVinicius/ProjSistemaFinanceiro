@@ -1,16 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IClasses;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.Filtros;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 using ProjSistemaFinanceiro.Infraestrutura.Configuracao;
 using ProjSistemaFinanceiro.Infraestrutura.Repositorio.Generico;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
 {
@@ -20,36 +14,12 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
 
         public async Task AdicionarTransacoes(List<TransacaoEntity> listaObjetos)
         {
-
-            //foreach(var objeto in listaObjeto)
-            //{
-            //    objeto.DataCriacao = DateTime.Now;
-            //    objeto.DataAlteracao = DateTime.Now;
-            //    await base._context.Transacoes.AddAsync(objeto);
-            //    await _context.SaveChangesAsync();
-            //}
             base._context.Transacoes?.AddRangeAsync(listaObjetos);
             await _context.SaveChangesAsync();
         }
 
-        public async Task AtualizarTransacao(TransacaoEntity objeto)
+        public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(string usuarioId, TransacaoFiltro? filtro = null)
         {
-            var objetoOriginal = await _context.Transacoes.FindAsync(objeto.Id);
-            _context.Entry(objetoOriginal).CurrentValues.SetValues(objeto);
-            _context.Entry(objetoOriginal).Property("TipoControleId").IsModified = false;
-            await _context.SaveChangesAsync();
-            ////var objId = await _context.Transacoes.FindAsync(objeto.Id);
-            ////objeto.TipoControleId = objId.TipoControleId;
-            ////_context.Transacoes.Update(objeto);
-            ////await _context.SaveChangesAsync();
-        }
-
-        public async Task<ResultadoPagina<TransacaoEntity>> ListarTransacoes(TransacaoFiltro? filtro = null)
-        {
-            //string tipoControleIdStr = tipoControleId?.ToString();
-            //string tipoContaIdStr = tipoContaId?.ToString();
-            //string transacaoIdStr = transacaoId?.ToString();
-
             var query = base._context.Transacoes
                 .Include(t => t.TipoControle)
                 .Include(t => t.Categoria)
@@ -57,19 +27,8 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
                 .Include(t => t.NomeCartao)
                 .Include(t => t.Banco)
                 .Include(t => t.TipoConta)
+                .Where(q => q.UsuarioId == usuarioId)
                 .AsQueryable();
-            //if (!string.IsNullOrEmpty(tipoControleIdStr))
-            //{
-            //    query = query.Where(t => t.TipoControleId == tipoControleId);
-            //}
-            //if (!string.IsNullOrEmpty(tipoContaIdStr))
-            //{
-            //    query = query.Where(t => t.TipoContaId == tipoContaId);
-            //}
-            //if (!string.IsNullOrEmpty(transacaoIdStr))
-            //{
-            //    query = query.Where(t => t.Id == transacaoId);
-            //}
             if(filtro != null)
             {
                 if (filtro.TipoControleId.HasValue)

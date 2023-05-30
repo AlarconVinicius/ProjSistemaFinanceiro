@@ -11,7 +11,7 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IGenerica
         Task Adicionar(T objeto);
         Task Atualizar(T objeto);
         Task Deletar(Guid id);
-        Task<T> PegarPorId(Guid id);
-        Task<List<T>> ListarTodos();
+        Task<T> ObterPorId(Guid id);
+        Task<List<T>> ObterTodos();
     }
 }

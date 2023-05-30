@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.NomeCartao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.NomeCartao;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
+    [Authorize]
     [Route("api/nome-cartao")]
     [ApiController]
     public class NomeCartaoController : ControllerBase
@@ -52,7 +54,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         public async Task<ResultadoPagina<NomeCartaoViewDTO>> ListarNomeCartoes([FromQuery] Guid? nomeCartaoId = null)
         {
             var objeto = await _iNomeCartaoService.ListarNomeCartoes(nomeCartaoId);
-            var objetoMapeado = _mapper.Map<List<NomeCartaoViewDTO>>(objeto);
+            var objetoMapeado = _mapper.Map<List<NomeCartaoViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<NomeCartaoViewDTO>
             {
                 Titulo = "Listagem dos nomes dos cartões.",

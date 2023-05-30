@@ -11,6 +11,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IClasses
 {
     public interface ICategoria : IGenerica<CategoriaEntity>
     {
-        Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(Guid? categoriaId = null);
+        Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(string usuarioId, Guid? categoriaId = null);
     }
 }

@@ -39,6 +39,11 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
+
                     b.HasKey("Id");
 
                     b.ToTable("Bancos");
@@ -65,6 +70,11 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
+
                     b.HasKey("Id");
 
                     b.ToTable("Categorias");
@@ -86,6 +96,11 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
@@ -109,6 +124,11 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
+
                     b.HasKey("Id");
 
                     b.ToTable("NomeCartoes");
@@ -130,6 +150,11 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
@@ -157,6 +182,11 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
@@ -212,11 +242,19 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Migrations
                     b.Property<bool>("Pago")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("TipoContaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TipoControleId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(2);
 
                     b.Property<double>("Valor")
                         .HasColumnType("float");

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Banco;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Categoria;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.MetodoPagamento;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.NomeCartao;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoConta;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoControle;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Transacao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Banco;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Categoria;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.MetodoPagamento;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.NomeCartao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.TipoConta;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.TipoControle;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Transacao;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 
 namespace ProjSistemaFinanceiro.Apresentacao.DTO.Configuracao
@@ -39,8 +39,8 @@ namespace ProjSistemaFinanceiro.Apresentacao.DTO.Configuracao
                 .ForMember(cvm => cvm.DataCriacao, options => options.MapFrom(te => te.DataCriacao.ToString("dd/MM/yyyy")));
 
             CreateMap<TipoContaAddDTO, TipoContaEntity>();
-            CreateMap<TipoContaUpdDTO, CategoriaEntity>();
-            CreateMap<TipoContaViewDTO, CategoriaEntity>().ReverseMap()
+            CreateMap<TipoContaUpdDTO, TipoContaEntity>();
+            CreateMap<TipoContaViewDTO, TipoContaEntity>().ReverseMap()
                 .ForMember(cvm => cvm.DataAlteracao, options => options.MapFrom(te => te.DataAlteracao.ToString("dd/MM/yyyy")))
                 .ForMember(cvm => cvm.DataCriacao, options => options.MapFrom(te => te.DataCriacao.ToString("dd/MM/yyyy")));
 
@@ -63,6 +63,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.DTO.Configuracao
                 .ForMember(tvm => tvm.DataPagamento, options => options.MapFrom(te => te.DataPagamento.ToString("dd/MM/yyyy")))
                 .ForMember(tvm => tvm.DataAlteracao, options => options.MapFrom(te => te.DataAlteracao.ToString("dd/MM/yyyy")))
                 .ForMember(tvm => tvm.DataCriacao, options => options.MapFrom(te => te.DataCriacao.ToString("dd/MM/yyyy")));
+
         }
     }
 }

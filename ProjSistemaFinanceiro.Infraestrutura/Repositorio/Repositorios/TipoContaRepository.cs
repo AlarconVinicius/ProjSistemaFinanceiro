@@ -17,11 +17,12 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
         public TipoContaRepository(ContextoBase context) : base(context) {}
 
 
-        public async Task<ResultadoPagina<TipoContaEntity>> ListarTiposConta(Guid? tipoContaId = null)
+        public async Task<ResultadoPagina<TipoContaEntity>> ListarTiposConta(string usuarioId, Guid? tipoContaId = null)
         {
             string tipoContaIdStr = tipoContaId?.ToString();
 
             var query = base._context.TipoContas
+                .Where(q => q.UsuarioId == usuarioId)
                 .AsQueryable();
             if (!string.IsNullOrEmpty(tipoContaIdStr))
             {

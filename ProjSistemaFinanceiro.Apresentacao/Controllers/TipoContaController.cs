@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.TipoConta;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.TipoConta;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
+    [Authorize]
     [Route("api/tipo-contas")]
     [ApiController]
     public class TipoContaController : ControllerBase
@@ -52,7 +54,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
         public async Task<ResultadoPagina<TipoContaViewDTO>> ListarTiposConta([FromQuery] Guid? tipoContaId = null)
         {
             var objeto = await _iTipoContaService.ListarTiposConta(tipoContaId);
-            var objetoMapeado = _mapper.Map<List<TipoContaViewDTO>>(objeto);
+            var objetoMapeado = _mapper.Map<List<TipoContaViewDTO>>(objeto.Resultado);
             return new ResultadoPagina<TipoContaViewDTO>
             {
                 Titulo = "Listagem dos tipos de contas.",

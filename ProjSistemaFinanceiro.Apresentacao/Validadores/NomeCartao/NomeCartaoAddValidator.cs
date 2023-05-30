@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.NomeCartao;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.NomeCartao;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Validadores.NomeCartao
 {

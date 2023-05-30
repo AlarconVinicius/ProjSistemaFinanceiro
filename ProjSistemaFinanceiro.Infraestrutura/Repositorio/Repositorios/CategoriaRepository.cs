@@ -17,11 +17,12 @@ namespace ProjSistemaFinanceiro.Infraestrutura.Repositorio.Repositorios
         public CategoriaRepository(ContextoBase context) : base(context) {}
 
 
-        public async Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(Guid? categoriaId = null)
+        public async Task<ResultadoPagina<CategoriaEntity>> ListarCategorias(string usuarioId, Guid? categoriaId = null)
         {
             string categoriaIdStr = categoriaId?.ToString();
 
             var query = base._context.Categorias
+                .Where(q => q.UsuarioId == usuarioId)
                 .AsQueryable();
             if (!string.IsNullOrEmpty(categoriaIdStr))
             {

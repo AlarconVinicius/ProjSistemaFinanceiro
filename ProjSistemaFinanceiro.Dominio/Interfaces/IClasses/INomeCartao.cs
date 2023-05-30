@@ -11,6 +11,6 @@ namespace ProjSistemaFinanceiro.Dominio.Interfaces.IClasses
 {
     public interface INomeCartao : IGenerica<NomeCartaoEntity>
     {
-        Task<ResultadoPagina<NomeCartaoEntity>> ListarNomeCartoes(Guid? nomeCartaoId = null);
+        Task<ResultadoPagina<NomeCartaoEntity>> ListarNomeCartoes(string usuarioId, Guid? nomeCartaoId = null);
     }
 }

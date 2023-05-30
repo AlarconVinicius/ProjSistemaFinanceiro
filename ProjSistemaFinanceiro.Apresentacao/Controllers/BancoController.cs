@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProjSistemaFinanceiro.Apresentacao.DTO.DTOs.Banco;
+using ProjSistemaFinanceiro.Aplicacao.DTOs.Banco;
 using ProjSistemaFinanceiro.Dominio.Interfaces.IServicos;
 using ProjSistemaFinanceiro.Entidade.Entidades;
 using ProjSistemaFinanceiro.Entidade.ResultadoPaginas;
+using ProjSistemaFinanceiro.Identity.Constantes;
 
 namespace ProjSistemaFinanceiro.Apresentacao.Controllers
 {
+    [Authorize]
     [Route("api/bancos")]
     [ApiController]
     public class BancoController : ControllerBase
@@ -25,6 +28,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             _updValidator = updValidator;
         }
 
+        //[Authorize(Roles = Roles.Admin)]
         [HttpPost]
         public async Task<ActionResult> AdicionarBanco(BancoAddDTO objeto)
         {
@@ -48,6 +52,7 @@ namespace ProjSistemaFinanceiro.Apresentacao.Controllers
             return Ok();
         }
 
+        //[Authorize(Policy = Policies.HorarioComercial)]
         [HttpGet]
         public async Task<ResultadoPagina<BancoViewDTO>> ListarBancos([FromQuery] Guid? bancoId = null)
         {
